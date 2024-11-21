@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./backend/env/backend",
+        "./backend/env/Lib/site-packages"
+    ]
+}
