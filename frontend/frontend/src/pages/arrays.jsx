@@ -3,23 +3,26 @@ import { AiOutlineWhatsApp } from 'react-icons/ai'
 import { FaGithub, FaEnvelope, FaFacebook, FaInstagram, FaTwitter, FaMapMarkerAlt, FaAt, FaPhoneAlt} from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import api from '../api'
+import axios from 'axios'
 
 
-//LOGO
+  //LOGO
 
 export const LogoIcon = () => {
-const [mainLogo, setMainLogo] = useState('')
+  const [mainLogo, setMainLogo] = useState([
+    { 
+      id:0, 
+      logo_Img:'',
+    }
+  ])
   
-  const getLogo = () =>{
-    fetch('http://127.0.0.1:8000/api/media/api/media/images/logo/logoMain.png', {
-      method: 'GET',
-    })
-    .then((response) => response.blob())
-    .then((blob) => { 
-      const objURL = URL.createObjectURL(blob)
-      setMainLogo(objURL)
-    })
-    .catch((error) => alert('Error fetching logo:',error))
+  async function getLogo(){
+    try{
+      const logo = await axios.get('http://127.0.0.1:8000/api/logo/')         
+      setMainLogo(logo.data)
+    }catch(err){
+      alert(`Error fetching logo: ${err.message}`)
+    }   
   }
 
   useEffect(() =>{
@@ -44,12 +47,14 @@ export const About_us = () => {
       }
     ])
 
-    function getAbout(){
-      api
-      .get('/api/about-us/')
-      .then((response) => response.data)
-      .then((data) => {setAbout(data)})
-      .catch((error) => alert('Error fetching about', error))
+    async function getAbout(){
+      try{
+        const about = await api.get('/api/about-us/')        
+        setAbout(about.data)
+      }catch(err){
+        alert(`Error fetching about info: ${err.message}`)
+      }   
+
     }
 
     useEffect(() => {
@@ -80,12 +85,31 @@ export const mainLinks = () =>{
   return mainItems
 }
 
-export const sideLinks = [    //navbar
-  {id: 1, icon: <AiOutlineWhatsApp />, link: '/',},
-  {id: 2, icon: <FaGithub />, link: '/',},
-  {id: 3, icon: <FaEnvelope />, link: '/',},
+export const sideLinks = () =>{    //navbar
 
-]
+  const [cont, setCont] = useState([])
+  
+  const getContact = () =>{
+    api
+    .get('/api/contacts/')
+    .then((response) => response.data)
+    .then((data) =>setCont(data))
+    .catch((error) => alert('Error fetching contacts:',error))
+  }
+
+  useEffect(() =>{
+    getContact()
+  }, [])
+ 
+  const contact = [
+    {id: 1, icon: <AiOutlineWhatsApp />, link: '/',},
+    {id: 2, icon: <FaGithub />, link: 'https://github.com/njoroge10220/jinegroup',},
+    {id: 3, icon: <FaEnvelope />, link:  `mailto:${cont.map(c => c.company_email)}`,},
+  ]
+
+  return contact
+}
+
 
 //SERVICES
 
@@ -104,31 +128,12 @@ export const Service = () => {
   
   
   async function getService(){
-    await api
-            .get('/api/services/')
-            .then((response) => response.data)
-            .then((data) =>{setServ(data)})
-            .catch((error) => alert('Error fetching services:',error))
-
-    const imgURLS = [
-      {id: 1, url:'http://127.0.0.1:8000/api/media/api/media/images/services/development.png',},
-      {id: 2, url:'http://127.0.0.1:8000/api/media/api/media/images/services/coding.png',},
-      {id: 3, url:'http://127.0.0.1:8000/api/media/api/media/images/services/consu.png',},
-      {id: 4, url:'http://127.0.0.1:8000/api/media/api/media/images/services/integration_1.png',},
-    ]
-
-    imgURLS.map(async (url) =>{
-      await fetch(url.url, {
-        method: 'GET',
-      })
-      .then((response) => response.blob())
-      .then((blob) => { 
-      const objURL = URL.createObjectURL(blob)
-      setServ((prvS) => prvS.map((ser) =>
-            ser.id === url.id ? {...ser, service_Img: objURL } : ser))
-      })      
-      .catch((error) => alert('Error fetching service images:',error))  
-    })      
+    try{
+        const service = await api.get('/api/services/')         
+        setServ(service.data)
+    }catch(err){
+      alert(`Error fetching service images: ${err.message}`)
+    }    
   }
 
   useEffect(() =>{
@@ -157,34 +162,16 @@ export const Product = () =>{
       product_rating:0,
       product_feedback_author:'',
     }
-  ])
-  
+  ])  
 
-  const getProduct = () =>{
-    api
-    .get('/api/products/')
-    .then((response) => response.data)
-    .then((data) =>{setProd(data)})
-    .catch((error) => alert('Error fetching products:', error))
-
-    const imgURLs = [
-      {id:1, url:'http://127.0.0.1:8000/media/api/media/images/products/shootOut4.png',},
-    ]
-
-    imgURLs.map(async(url) =>{
-      await fetch(url.url, {
-        method: 'GET',
-      })
-      .then((resp) => resp.blob())
-      .then((blob) => {
-        const objURL = URL.createObjectURL(blob)
-        setProd((prvP) => prvP.map((p) => 
-        p.id === url.id ? {...p, product_Img: objURL} : p ))
-      })
-      .catch((err) => alert('Error fetching product images:', err))
-    })
+  async function getProduct(){
+      try{
+        const product = await api.get('/api/products/')       
+        setProd(product.data)
+      }catch(err){
+        alert(`Error fetching products: ${err.message}`)
+      }       
   }
-
   
   useEffect(() =>{
     getProduct()
@@ -192,6 +179,7 @@ export const Product = () =>{
 
   return prod
 }
+
   
   //COMPLETED PROJECTS
 
@@ -207,28 +195,12 @@ export const Completed_projects = () =>{
   ])
 
   async function getProj(){
-    await api
-        .get('api/past-projects/')
-        .then((resp) => resp.data)
-        .then((data) =>{ setProj(data)})
-        .catch((err)=> alert('Errors fetching past projects:', err))
-
-    const imgURLs = [
-      {id:1, url:'http://127.0.0.1:8000/media/api/media/images/past-projects/shootOut4_xv2lRBP.png',},
-    ]
-
-    imgURLs.map(async(url) =>{
-      await fetch(url.url, {
-        method: 'GET',
-      })
-      .then((resp) => resp.blob())
-      .then((blob) => {
-        const objURL = URL.createObjectURL(blob)
-        setProj((prvP) => prvP.map((p) => 
-        p.id === url.id ? {...p, proj_Img: objURL} : p ))
-      })
-      .catch((err) => alert('Error fetching past projects images:', err))
-    })
+      try{
+        const project = await api.get('api/past-projects/')        
+        setProj(project.data)
+      }catch(err){
+        alert(`Error fetching completed ${err.message}`)
+      }      
   }
 
   useEffect(() => {
@@ -254,12 +226,13 @@ export const Feedback =() =>{
     }
   ])
   
-  const getFeed = () =>{
-    api
-    .get('/api/feedback-and-rating/create/')
-    .then((response) => response.data)
-    .then((data) =>{setFeed(data)})
-    .catch((error) => alert('Error fetching feedback:',error))
+async function getFeed(){
+    try{
+      const feedback = await api.get('/api/feedback-and-rating/create/')        
+      setFeed(feedback.data)
+    }catch(err){
+      alert(`Error fetching feedback: ${err.message}`)
+    }    
   }
 
   useEffect(() =>{
@@ -283,12 +256,13 @@ export const FAQ = () =>{
     }    
   ])
 
-  function getFaq(){
-    api
-      .get('/api/faqs/ask/')
-      .then((response) => response.data)
-      .then((data) =>{setFaq(data)})
-      .catch((error) => alert('Error fetching FAQs:', error))
+  async function getFaq(){
+    try{
+      const faq = await api.get('/api/faqs/ask/')        
+      setFaq(faq.data)
+    }catch(err){
+      alert(`Error fetching faqs: ${err.message}`)
+    }    
   }
 
   useEffect(() =>{
@@ -309,12 +283,13 @@ export const FAQ = () =>{
         content:'',
       }
     ])
-    function getPolicy(){
-      api
-      .get("/api/privacy-policy/")
-      .then((response) => response.data)
-      .then((data) =>{setPolicy(data)})
-      .catch((err) => alert('errors fetching privacy policies:', err))
+    async function getPolicy(){
+      try{
+        const priPolicy = await api.get("/api/privacy-policy/")       
+        setPolicy(priPolicy.data)
+      }catch(err){
+        alert(`Error fetching privacy policy: ${err.message}`)
+      } 
     }
 
     useEffect(() => {
@@ -334,12 +309,13 @@ export const FAQ = () =>{
       }
     ])
 
-    function getTerms() {
-      api
-      .get('/api/terms-of-service/')
-      .then((response) => response.data)
-      .then((data) =>{setTerms(data)})
-      .catch((err) =>alert('Errors in fetching the terms and conditions:', err))
+    async function getTerms(){
+      try{
+        const tos = await api.get('/api/terms-of-service/')        
+        setTerms(tos.data)
+      }catch(err){
+        alert(`Error fetching terms of service: ${err.message}`)
+      }  
     }
 
     useEffect(() =>{
@@ -363,11 +339,13 @@ export const FAQ = () =>{
       }
     ])
 
-    function getLogs(){
-      api.get('/api/changelog/')
-      .then((response) => response.data)
-      .then((data) => {setLogs(data)})
-      .catch((err) => alert('Errors fetching change logs:', err))
+    async function getLogs(){
+      try{
+        const log = await api.get('/api/changelog/')        
+        setLogs(log.data)
+      }catch(err){
+        alert(`Error fetching service images: ${err.message}`)
+      }     
     }
 
     useEffect(()=>{
@@ -383,12 +361,13 @@ export const contactList = () => {
 
   const [cont, setCont] = useState([])
   
-  const getContact = () =>{
-    api
-    .get('/api/contacts/')
-    .then((response) => response.data)
-    .then((data) =>setCont(data))
-    .catch((error) => alert('Error fetching contacts:',error))
+  async function getContact(){
+    try{
+      const con = await api.get('/api/contacts/')        
+      setCont(con.data)
+    }catch(err){
+      alert(`Error fetching service images: ${err.message}`)
+    }   
   }
 
   useEffect(() =>{

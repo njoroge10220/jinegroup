@@ -36,7 +36,6 @@ function ServicesPage() {
                 },
                 body: JSON.stringify(ser),
             })
-
             if(!ser_res.ok){
                 if(ser_res.status === 400){                   
                     alert('Check your email and enter a valid one!')

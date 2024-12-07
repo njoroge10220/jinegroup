@@ -21,7 +21,7 @@ function App() {
 
   return (
     <>
-      <body className='w-full bg-bg-1  font-["Cambria"]'>
+      <body className=' bg-bg-1  bg-center font-["Cambria"]'>
        <BrowserRouter>
           <Routes>
             <Route path='/' element={<Homepage />} />

@@ -4,7 +4,7 @@ import {AiOutlineClose, AiOutlineMenu, AiOutlineWhatsApp, } from "react-icons/ai
 import {FaGithub, FaEnvelope} from 'react-icons/fa'
 import { Dropdown } from "react-bootstrap"
 import Button from "./button"
-import { Service, Product, sideLinks, mainLinks, LogoIcon } from "./arrays"
+import { Service, Product, sideLinks, mainLinks, LogoIcon, } from "./arrays"
 
 
 function Navbarpage(){
@@ -12,6 +12,7 @@ function Navbarpage(){
     const services = Service()
     const products = Product()
     const logo = LogoIcon()
+    const sideLink = sideLinks()
 
     //usefull when in mobile to toggle the menu icons
     const [inMobile, setInMobile] = useState(false)
@@ -67,7 +68,9 @@ function Navbarpage(){
             <div className=" flex justify-between items-center w-[90%] mx-auto my-auto md:h-20 h-14 top-[100px] ">    
                 <div className="mt-5">
                     <a href="/">
-                        <img src={logo} alt="company logo" className=" md:mt-12 mt-6 md:h-36 h-24" />
+                        {logo.map((l) =>(
+                            <img src={l.logo_Img} alt="company logo" className=" md:mt-12 mt-6 md:h-36 h-24" />
+                        ))}
                     </a>                 
                 </div>
                 <div className={`md:static absolute md:w-auto w-[40%] bg-[#1a1a1a] md:right-0 right-3
@@ -124,9 +127,9 @@ function Navbarpage(){
         {/** side bar  */}
         <div className="fixed bg-[#1a1a1a] top-[50%] rounded-r-xl z-10">
           <ul className="flex flex-col md:text-3xl text-2xl gap-6 text-[#c7ae6a] px-0.5 py-2 ">
-            {sideLinks.map((sideLink)=>(
-                <li key={sideLink.id} className="left-1">
-                    <a href={sideLink.link}>{sideLink.icon} </a>
+            {sideLink.map((link)=>(
+                <li key={link.id} className="left-1">
+                    <a href={link.link}>{link.icon} </a>
                 </li>
             ))}
           </ul>
