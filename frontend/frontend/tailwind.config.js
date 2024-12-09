@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'bg-1': "url('./src/assets/Cool-bg.png') "
+        'bg-1': "url('./src/assets/bg.jpg') "
       },
     }, 
   },

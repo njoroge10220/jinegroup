@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react"
 import {AiOutlineClose, AiOutlineMenu, AiOutlineWhatsApp, } from "react-icons/ai"
+import {MdOutlineArrowRight, MdOutlineArrowDropDown } from "react-icons/md";
 import {FaGithub, FaEnvelope} from 'react-icons/fa'
 import { Dropdown } from "react-bootstrap"
 import Button from "./button"
@@ -16,47 +17,8 @@ function Navbarpage(){
 
     //usefull when in mobile to toggle the menu icons
     const [inMobile, setInMobile] = useState(false)
-    const [serviceHovered, setServiceHovered] = useState(false)
-    const [productHovered, setProductHovered] = useState(false)
-
-    function handleHoverEnter(index){
-        if(index === 4){ 
-            serviceDropStay(true)
-        }else if(index === 3){
-            productDropStay(true)
-        }else {
-            productDropStay(false)
-            serviceDropStay(false)
-        }
-    }
-    function handleHoverLeave(index){ 
-        if(index === 4 && serviceDropStay(false)){ 
-            setServiceHovered(false)
-        }else if(index === 4 && serviceDropStay(true)){ 
-            setServiceHovered(true)
-        }else if(index === 3 && productDropStay(false)){
-            setProductHovered(false)
-        }else if(index === 3 && productDropStay(true)){
-            setProductHovered(true)
-        }else{
-            setServiceHovered(false)
-            setProductHovered(false)
-        }
-    }
-
-    function productDropStay(bool){ 
-        productStay(bool)
-    }
-    function productStay(b){ 
-        setProductHovered(b)
-    }
-
-    function serviceDropStay(bool){
-        ServiceStay(bool)
-    }
-    function ServiceStay(b){
-        setServiceHovered(b);
-    }
+    const [isHover, setIsHover] = useState(null)
+   
 
     useEffect(() => {
        
@@ -78,43 +40,52 @@ function Navbarpage(){
                     <ul className='flex md:flex-row flex-col items-center md:gap-[4vw] gap-4 text-xl py-5' >
                     {mainItems.map((mainItem)=>(
                         <li className="hover:underline underline-offset-4 hover:text-[#c7ae6a] " key={mainItem.id}>
-                            <a href={mainItem.linkToText} 
-                            onMouseEnter={() => handleHoverEnter(mainItem.id)}  
-                            onMouseLeave={() => handleHoverLeave(mainItem.id)}> {mainItem.text} </a>
+                            <a href={mainItem.linkToText}                       
+                            onMouseEnter={() => setIsHover(mainItem.id)}> 
+                            <div className="flex ">  
+                                {mainItem.text} 
+                                {mainItem.id === 3 ? 
+                                (isHover === 3 ? < MdOutlineArrowDropDown className="md:my-0.7" size={30} /> 
+                                : < MdOutlineArrowRight className="md:my-0.7" size={30} />) : ("")} 
+                                {mainItem.id === 4 ? 
+                                (isHover === 4 ? < MdOutlineArrowDropDown className="md:my-0.7" size={30} /> 
+                                : < MdOutlineArrowRight className="md:my-0.7" size={30} />) : ("")} 
+                            </div>
+                            </a>
+                            
                         </li>))}            
                     </ul>
-                    {serviceHovered &&(
-                        <div className=" grid grid-cols-1"
-                            onMouseEnter={() => serviceDropStay(true)}
-                            onMouseLeave={() => serviceDropStay(false)}>
-                            <div
-                            className="dropdown bg-[#1a1a1a]  md:w-64 w-full mx-auto md:mt-56 mt-10  
-                            text-[#fff] transform: translate-ease-in-out"> 
-                                {services.map((service) =>(
-                                    <div className="text-xl flex justify-center items-center mx-auto font-semibold
-                                        hover:text-[#b99a45] px-2 py-3">
-                                          <a href={'/services'}> {service.service_name} </a>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )} 
-                    {productHovered &&(
-                         <div className="  grid grid-cols-1"
-                        onMouseEnter={() => productDropStay(true)}
-                        onMouseLeave={() => productDropStay(false)}>
-                              <div
-                                className="dropdown bg-[#1a1a1a] my-9 justify-center items-center 
-                                text-[#fff] md:w-64 w-full transform: translate-ease-in-out md:px-0 px-5"> 
-                                    {products.map((product) =>(
-                                        <div className="text-xl flex justify-center items-center  mx-auto font-semibold
-                                        hover:text-[#b99a45] px-5">
-                                           <a href={'/products'}>{product.product_title} </a>
-                                        </div>
-                                    ))}
-                                </div>
-                        </div>
-                    )} 
+                    {isHover === 3 &&
+                    <div className="absolute md:w-full mx-auto z-10 -mt-2" 
+                    onMouseEnter={() => setIsHover(isHover)} onMouseLeave={() =>setIsHover(null)}>
+                        <ul className="py-1 md:w-[30%] w-full bg-[#FFFFFF80] text-center ">
+                            {products.map((prod) => (
+                                <li className="md:py-2 py-1 md:text-xl text-lg
+                                    text-[#1a1a1a] hover:text-[#c7ae6a] font-semibold px-1"
+                                key={prod.id}>
+                                    <a href="">                                                
+                                        {prod.product_title}                                                 
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    }                   
+                    {isHover === 4 && 
+                    <div className="absolute md:w-[100%] mx-auto  z-10 -mt-3" 
+                    onMouseEnter={() => setIsHover(isHover)} onMouseLeave={() =>setIsHover(null)}>
+                        <ul className="py-1 md:w-[30%] w-full bg-[#FFFFFF80] text-center " >
+                            {services.map((ser) =>(
+                                <li className="md:py-2 py-1 md:text-xl text-lg text-[#1a1a1a] hover:text-[#c7ae6a]  font-semibold"  
+                                key={ser.id}>
+                                    <a href="" >
+                                        {ser.service_name}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    }                   
                 </div>
                 <div className="p-3 flex justify-between items-center gap-6"> 
                    <a href='/contacts'> <Button>Contact</Button> </a>

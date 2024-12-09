@@ -75,10 +75,10 @@ function Homepage() {
         <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[60%] h-1 my-3 rounded-xl mx-auto " />
         <div className=' flex flex-col justify-center items-center w-[90%] mx-auto' data-aos='fade-up'> {/** services div */}
           <h1 className=' text-[#aaabab] md:text-5xl text-3xl font-extrabold'>Our Services</h1>
-          <div className='py-5'>
-            <ul className=' flex flex-wrap justify-center gap-10 w-[90%] mx-auto '>
+          <div className='py-5 '>
+            <ul className=' flex flex-wrap justify-center gap-10 md:w-[90%] w-full mx-auto  '>
               {services.map((service)=>(
-               <li  key={service.id} className='w-80 '  data-aos='zoom-in'>             
+               <li  key={service.id} className='md:w-[30%] w-[95%] ' data-aos='zoom-in'>             
                   <Card           
                   image={service.service_Img}                 
                   title={service.service_name}
@@ -100,7 +100,8 @@ function Homepage() {
                     <Card           
                     image={product.product_Img}                   
                     title={`${product.product_genre} : ${product.product_title}`}
-                    description={`${product.product_short_description}  That is coming out very very soon! Subscribe below to be informed once it is out.`} 
+                    description={`${product.product_short_description} 
+                    That is coming out very very soon! Subscribe below to be informed once it is out.`} 
                     button1={<Button>see more</Button>}
                     button2={
                       <Button> 

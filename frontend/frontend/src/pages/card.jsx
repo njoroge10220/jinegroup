@@ -11,8 +11,9 @@ function Card({title, image, description, button1, button2, link1, link2}){
             <div>
                 <h2 className="px-2 font-bold text-2xl flex justify-center items-center my-3 text-[#1a1a1a] ">{title} </h2>        
             </div>
-            <div className="flex justify-center items-center ">
-                <p className={` px-2 my-2 font-semibold flex justify-center items-center ${description ? 'h-36' : 'h-1' } w-[90%] mx-auto `}>{description} </p>
+            <div className="flex h-full justify-center items-center ">
+                <p className={` px-2 my-2 font-semibold flex justify-center items-center
+                    ${description ? 'h-[80%] ' : 'h-[30%] ' } w-[90%] mx-auto `}>{description} </p>
             </div>
             <div className=" flex justify-center items-center w-[80%] gap-2 mx-auto my-5 ">
                 <a href={link1}>{button1}</a>  
