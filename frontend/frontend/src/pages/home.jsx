@@ -60,7 +60,7 @@ function Homepage() {
             <h1 className=' text-[#aaabab] md:text-7xl text-5xl font-extrabold'>Tech Products & Services</h1>
             <div>
               {about_us.map((ab_us) =>(
-                <p className=' text-[#aaabab] text-xl py-2 font-bold md:w-[80%] w-[90%] mx-auto '>
+                <p className=' text-[#fff] text-xl py-2 font-bold md:w-[80%] w-[90%] mx-auto '>
                   {ab_us.company_short_description}
                 </p>
               ))}               

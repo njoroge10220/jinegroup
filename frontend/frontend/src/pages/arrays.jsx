@@ -70,7 +70,7 @@ export const socialLinks= [ //footer
   { id: 1, icon: <FaFacebook />, linkToSocial: '/' },
   { id: 2, icon: <FaInstagram />, linkToSocial: '/' },
   { id: 3, icon: <FaTwitter />, linkToSocial: '/' },
-  { id: 4, icon: <FaGithub />, linkToSocial: '/'},
+  { id: 4, icon: <FaGithub />, linkToSocial: 'https://github.com/njoroge10220/jinegroup'},
 ]
 
 export const mainLinks = () =>{

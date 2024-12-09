@@ -21,7 +21,7 @@ function Navbarpage(){
    
 
     useEffect(() => {
-       
+      setIsHover(null) 
     }, [])
 
     return(
@@ -35,11 +35,11 @@ function Navbarpage(){
                         ))}
                     </a>                 
                 </div>
-                <div className={`md:static absolute md:w-auto w-[40%] bg-[#1a1a1a] md:right-0 right-3
-                    ${inMobile ? 'top-[60px] ' : 'top-[-500px]'}`}>
-                    <ul className='flex md:flex-row flex-col items-center md:gap-[4vw] gap-4 text-xl py-5' >
+                <div className={`md:static absolute md:w-auto w-[40%] md:bg-[#1a1a1a]  md:right-0 right-3
+                    ${inMobile ? 'top-[60px] bg-[#FFFFFF80] text-[#000] ' : 'top-[-500px]'}`}>
+                    <ul className='flex md:flex-row flex-col items-center md:gap-[4vw] gap-4 text-xl py-5 font-semibold' >
                     {mainItems.map((mainItem)=>(
-                        <li className="hover:underline underline-offset-4 hover:text-[#c7ae6a] " key={mainItem.id}>
+                        <li className="hover:underline underline-offset-4  hover:text-[#c7ae6a] " key={mainItem.id}>
                             <a href={mainItem.linkToText}                       
                             onMouseEnter={() => setIsHover(mainItem.id)}> 
                             <div className="flex ">  
