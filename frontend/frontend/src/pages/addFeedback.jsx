@@ -96,7 +96,7 @@ function AddFeedbackPage() {
                 <div className="mt-5">
                     <div className=" bg-[#aaabab] shadow-lg shadow-[#aaabab] md:w-[50%] w-[80%] mx-auto rounded-lg p-4 "  data-aos='zoom-in'>
                         <div>
-                            <h3 className="font-semibold text-lg text-[#1a1a1a] md:w-[25%] w-[50%] mx-auto my-2">Give Feedback</h3>
+                            <h3 className="font-semibold text-lg text-[#1a1a1a] w-full mx-auto  text-center my-2">Give Feedback</h3>
                             <form  onSubmit={handleSubmit} className="font-semibold md:w-[80%] mx-auto ">
                                 <label htmlFor="Your-Email">Your Email:</label> <br />
                                 <input type="email" name="email" id='Your-Email' placeholder="enter your email here" value={input.email} onChange={handleChange}  className="my-2 w-full rounded-lg py-1 px-2 " /> <br />
@@ -105,7 +105,7 @@ function AddFeedbackPage() {
                                 <label htmlFor="Your-occupation">Your Connection with us:</label><br />
                                 <input type="text" name="occupation" id='Your-occupation' placeholder="customer, partner, client etc" value={input.occupation} onChange={handleChange} className="my-2 w-full rounded-lg py-1 px-2" />
                                 <label htmlFor="Your-feedback">Your Feedback:</label><br />
-                                <textarea id="Your-feedback" name="feedback" rows={5} value={input.feedback} onChange={handleChange} placeholder="What are your thoughts on our services, products or operations" className="my-2 w-full rounded-lg py-1 border-[#aaabab] shadow-md shadow-[#FFFFFF80]  border px-2" />
+                                <textarea id="Your-feedback" name="feedback" rows={5} value={input.feedback} onChange={handleChange} placeholder="What are your thoughts on our services, products or operations" className="my-2 w-full rounded-lg py-1 border-[#aaabab] shadow-md shadow-[#FFFFFF80] border px-2" />
                             </form>
                         </div>
                         <div>
@@ -142,8 +142,8 @@ function AddFeedbackPage() {
                                 </form>
                             </div>
                         </div>
-                        <div className=" justify-center flex items-center w-full pt-2 ">
-                            <div onClick={handleSubmit}><Button> send </Button></div>                              
+                        <div className=" justify-center flex items-center pt-2 ">
+                            <div onClick={handleSubmit} className=""><Button> send </Button></div>                              
                         </div> 
                                           
                     </div>

@@ -12,9 +12,15 @@ function ContactsPage() {
                 <div> {/** navbar section */}
                     <Navbarpage />
                 </div>
-                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex justify-center items-center md:pt-24 pt-20">
-                    <h2>Contact Us</h2>
+                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex flex-col justify-center items-center  pt-24">
+                    <h2>Our Contacts</h2>
+                    <div>
+                        <p className=' text-[#fff] text-xl py-2 font-bold w-full mx-auto '>
+                            Reach out to us today...
+                        </p>             
+                    </div>
                 </div>
+               
                 <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[30%] h-1  my-2 rounded-xl mx-auto " />
                 <div>
                 <div className="md:w-[60%] w-[80%] mx-auto bg-[#aaabab] rounded-xl ">

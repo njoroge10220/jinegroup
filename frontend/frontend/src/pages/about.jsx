@@ -14,7 +14,7 @@ function AboutUsPage() {
                 <div> {/** navbar section */}
                     <Navbarpage />
                 </div>
-                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex justify-center items-center md:pt-24 pt-20">
+                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex justify-center items-center pt-24">
                     <h2>About Us</h2>
                 </div>
                 <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[30%] h-1  my-2 rounded-xl mx-auto " />

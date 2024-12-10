@@ -16,8 +16,8 @@ function ProductsPage() {
                 <div> {/** navbar section */}
                     <Navbarpage />
                 </div>
-                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex justify-center items-center md:pt-24 pt-20">
-                    <h2>Products</h2>
+                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex justify-center items-center  pt-24">
+                    <h2> Our Products</h2>
                 </div>
                 <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[30%] h-1  my-2 rounded-xl mx-auto " />
                 <div>

@@ -51,10 +51,16 @@ function Homepage() {
   return (
     <>
     <body >
-      <div className='md:pb-36 pb-24'> {/** navbar section */}
+
+{/** navbar section */}
+
+      <div className='md:pb-36 pb-24'> 
         <Navbarpage />
       </div>
-      <div> {/** main home page section */}
+
+{/** main home page section */}
+
+      <div> 
         <div>
           <div className='flex flex-col justify-center items-center pb-5 w-[80%] mx-auto ' data-aos='fade-up'>
             <h1 className=' text-[#aaabab] md:text-7xl text-5xl font-extrabold'>Tech Products & Services</h1>
@@ -73,7 +79,10 @@ function Homepage() {
           </div>
         </div>
         <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[60%] h-1 my-3 rounded-xl mx-auto " />
-        <div className=' flex flex-col justify-center items-center w-[90%] mx-auto' data-aos='fade-up'> {/** services div */}
+
+{/** services div */}
+
+        <div className=' flex flex-col justify-center items-center w-[90%] mx-auto' data-aos='fade-up'> 
           <h1 className=' text-[#aaabab] md:text-5xl text-3xl font-extrabold'>Our Services</h1>
           <div className='py-5 '>
             <ul className=' flex flex-wrap justify-center gap-10 md:w-[90%] w-full mx-auto  '>
@@ -91,7 +100,10 @@ function Homepage() {
           </div>
         </div>
         <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[60%] h-1 my-3 rounded-xl mx-auto " />
-        <div className=' flex flex-col justify-center items-center w-[90%] mx-auto transition' data-aos='fade-up'> {/** products div */}
+
+{/** products div */}
+
+        <div className=' flex flex-col justify-center items-center w-[90%] mx-auto transition' data-aos='fade-up'> 
           <h1 className=' text-[#aaabab] md:text-5xl text-3xl font-extrabold' data-aos='zoom-in'>Our Products</h1>
           <div className='py-5' >
           <ul className=' flex flex-wrap justify-center gap-10 w-[90%] mx-auto '>
@@ -115,7 +127,10 @@ function Homepage() {
           </div>
         </div>
         <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[60%] h-1 my-3 rounded-xl mx-auto " />
-        <div className=' flex flex-col justify-center items-center w-[90%] mx-auto '> {/** newly completed projects div */}
+
+{/** newly completed projects div */}
+
+        <div className=' flex flex-col justify-center items-center w-[90%] mx-auto '> 
           <h1 className=' text-[#aaabab] md:text-5xl text-3xl font-extrabold' data-aos='zoom-in'>Our Newly Completed Projects</h1>
           <div className=' bg-[#fff] rounded-xl my-4 md:w-96 w-60 ' data-aos='zoom-in' >
             <Card           
@@ -137,7 +152,10 @@ function Homepage() {
           </div>
         </div>
         <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[60%] h-1 my-3 rounded-xl mx-auto " />
-        <div className=' flex flex-col justify-center items-center md:w-[90%] w-full mx-auto'> {/** feedback and rating div */}
+
+ {/** feedback and rating div */}
+
+        <div className=' flex flex-col justify-center items-center  w-full mx-auto'>
           <h1 className=' text-[#aaabab] md:text-5xl text-3xl font-extrabold' data-aos='zoom-in'>Feedbacks and ratings</h1>
           <div className='py-5' >
               <div>
@@ -149,19 +167,19 @@ function Homepage() {
                 rating={feedback_ratings[currentFeed].rating}              
                 />                  
               </div> 
-              <div className=' grid grid-cols-3 items-center' >
+              <div className=' grid grid-cols-3 w-full mx-auto place-items-center' >
                 {/** arrows */}
-                <div className=' px-10 justify-center'>
+                <div className=' justify-center text-center '>
                   <Button>
                     <AiFillLeftCircle onClick={handlePrevFeedback} size={30} />
                   </Button>
                 </div>
-                <div className=' flex justify-center'  data-aos='zoom-in'>
+                <div className=' justify-center items-center'>
                   <a href={'/addfeedback'}>
                     <Button>Add Feedback</Button>
                   </a>
                 </div>
-                <div className='px-10 justify-center'>
+                <div className=' justify-center items-center'>
                   <Button>
                     <AiFillRightCircle onClick={handleNextFeedback} size={30} />
                   </Button>
@@ -171,7 +189,10 @@ function Homepage() {
           </div>
         </div>
         <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[60%] h-1 my-3 rounded-xl mx-auto " />
-        <div className=' flex flex-col justify-center items-center w-full mx-auto'> {/** collaborate wit us div */}
+
+{/** collaborate wit us div */}
+
+        <div className=' flex flex-col justify-center items-center w-full mx-auto'> 
           <h1 className=' text-[#aaabab] md:text-5xl text-3xl font-extrabold'data-aos='zoom-in'>Collaborate with us</h1>
           <div className='py-5' >
             <div data-aos='zoom-in'>
@@ -180,7 +201,10 @@ function Homepage() {
           </div>
         </div>
       </div>
-      <div className=''> {/** footer section */}
+
+ {/** footer section */}
+
+      <div className=''>
         <Footer />
       </div>
     </body>

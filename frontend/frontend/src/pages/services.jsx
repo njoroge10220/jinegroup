@@ -84,8 +84,8 @@ function ServicesPage() {
                 <div> {/** navbar section */}
                     <Navbarpage />                    
                 </div>{/** mini navbar to show the  services */}                
-                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex justify-center items-center md:pt-24 pt-20">
-                    <h2>Services</h2>
+                <div className="  text-[#aaabab] md:text-7xl text-5xl font-extrabold flex justify-center items-center pt-24">
+                    <h2>Our Services</h2>
                 </div>
                 <hr className=" border-[#c7ae6a] bg-[#c7ae6a] w-[30%] h-1  my-2 rounded-xl mx-auto " />
                 <div>

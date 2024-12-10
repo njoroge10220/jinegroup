@@ -57,13 +57,13 @@ function Navbarpage(){
                     </ul>
                     {isHover === 3 &&
                     <div className="absolute md:w-full mx-auto z-10 -mt-2" 
-                    onMouseEnter={() => setIsHover(isHover)} onMouseLeave={() =>setIsHover(null)}>
+                    onMouseLeave={() =>setIsHover(null)}>
                         <ul className="py-1 md:w-[30%] w-full bg-[#FFFFFF80] text-center ">
                             {products.map((prod) => (
                                 <li className="md:py-2 py-1 md:text-xl text-lg
                                     text-[#1a1a1a] hover:text-[#c7ae6a] font-semibold px-1"
                                 key={prod.id}>
-                                    <a href="">                                                
+                                    <a href="/products">                                                
                                         {prod.product_title}                                                 
                                     </a>
                                 </li>
@@ -78,7 +78,7 @@ function Navbarpage(){
                             {services.map((ser) =>(
                                 <li className="md:py-2 py-1 md:text-xl text-lg text-[#1a1a1a] hover:text-[#c7ae6a]  font-semibold"  
                                 key={ser.id}>
-                                    <a href="" >
+                                    <a href="/services" >
                                         {ser.service_name}
                                     </a>
                                 </li>

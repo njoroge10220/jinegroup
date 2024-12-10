@@ -102,7 +102,7 @@ export const sideLinks = () =>{    //navbar
   }, [])
  
   const contact = [
-    {id: 1, icon: <AiOutlineWhatsApp />, link: '/',},
+    {id: 1, icon: <AiOutlineWhatsApp />, link: 'https://wa.me/254797398435?text=Hello%20I%20am%20interested%20in%20your%20services',},
     {id: 2, icon: <FaGithub />, link: 'https://github.com/njoroge10220/jinegroup',},
     {id: 3, icon: <FaEnvelope />, link:  `mailto:${cont.map(c => c.company_email)}`,},
   ]
@@ -375,8 +375,8 @@ export const contactList = () => {
   }, [])
  
   const contact =  [   //footer
-    {id: 1, icon: <FaMapMarkerAlt />, linkToContact: '', contactContent: cont.map(c => c.company_address)},
-    {id: 2, icon: <FaPhoneAlt />, linkToContact: '', contactContent: cont.map(c => c.company_phone_number)},
+    {id: 1, icon: <FaMapMarkerAlt />, linkToContact: 'https://www.google.com/maps?q=-4.062085,39.671509', contactContent: cont.map(c => c.company_address)},
+    {id: 2, icon: <FaPhoneAlt />, linkToContact:  `tel:${cont.map(c => c.company_phone_number)}`, contactContent: cont.map(c => c.company_phone_number)},
     {id: 3, icon: <FaEnvelope />, linkToContact: `mailto:${cont.map(c => c.company_email)}`, contactContent: `${cont.map(c => c.company_email)}`},
     {id: 4, icon: <FaAt />, linkToContact: '/', contactContent: cont.map(c => c.company_website)},
 ]
