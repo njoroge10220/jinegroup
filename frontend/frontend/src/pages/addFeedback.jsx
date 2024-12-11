@@ -126,11 +126,11 @@ function AddFeedbackPage() {
                                     )                                   
                                 })}
                             </div>
-                            <div className="md:w-[60%] w-[100%] mx-auto">
-                                <h5 className="font-semibold">May we follow up on your feedback?</h5>
+                            <div className="w-full mx-auto">
+                                <h5 className="font-semibold  text-center">May we follow up on your feedback?</h5>
                             </div>
                             <div className="md:w-[25%] w-[40%] mx-auto my-1 flex gap-5">
-                                <form className=" flex gap-7">
+                                <form className=" flex gap-7  justify-center">
                                     <div>
                                         <input type="radio" id="Yes" value={input.followUp} name="choice" onChange={handleChange} />
                                         <label htmlFor="Yes"> Yes</label>

@@ -18,7 +18,7 @@ export const LogoIcon = () => {
   
   async function getLogo(){
     try{
-      const logo = await axios.get('http://127.0.0.1:8000/api/logo/')         
+      const logo = await axios.get('https://127.0.0.1:8000/api/logo/')         
       setMainLogo(logo.data)
     }catch(err){
       alert(`Error fetching logo: ${err.message}`)
@@ -366,7 +366,7 @@ export const contactList = () => {
       const con = await api.get('/api/contacts/')        
       setCont(con.data)
     }catch(err){
-      alert(`Error fetching service images: ${err.message}`)
+      alert(`Error fetching contacts: ${err.message}`)
     }   
   }
 

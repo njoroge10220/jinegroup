@@ -87,7 +87,7 @@ function Homepage() {
           <div className='py-5 '>
             <ul className=' flex flex-wrap justify-center gap-10 md:w-[90%] w-full mx-auto  '>
               {services.map((service)=>(
-               <li  key={service.id} className='md:w-[30%] w-[95%] ' data-aos='zoom-in'>             
+               <li  key={service.id} className='md:w-[30%] w-[95%] flex ' data-aos='zoom-in'>             
                   <Card           
                   image={service.service_Img}                 
                   title={service.service_name}
@@ -108,7 +108,7 @@ function Homepage() {
           <div className='py-5' >
           <ul className=' flex flex-wrap justify-center gap-10 w-[90%] mx-auto '>
                 {products.map((product)=>(
-                  <li  key={product.id} className='w-80 '  data-aos='zoom-in'>             
+                  <li  key={product.id} className='w-80 flex '  data-aos='zoom-in'>             
                     <Card           
                     image={product.product_Img}                   
                     title={`${product.product_genre} : ${product.product_title}`}
