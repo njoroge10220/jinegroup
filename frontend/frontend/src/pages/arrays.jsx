@@ -94,7 +94,7 @@ export const sideLinks = () =>{    //navbar
     .get('/api/contacts/')
     .then((response) => response.data)
     .then((data) =>setCont(data))
-    .catch((error) => alert('Error fetching contacts:',error))
+    .catch((error) => alert('Error fetching contacts:', error.message))
   }
 
   useEffect(() =>{
