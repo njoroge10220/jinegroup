@@ -8,8 +8,11 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'bg-1': "url('./src/assets/bg.jpg') "
+        'bg-1': "url('./src/assets/bg.png') "
       },
+      rotate:{
+        '360': '360deg',
+      }
     }, 
   },
 /**add custom sytles here */
