@@ -9,7 +9,6 @@ import Footer from "./footer";
 
 import { Service } from "./getArrays";
 
-import ai from '../assets/ai.jpg'
 
 function ServiceDetail({id}){
 
@@ -31,7 +30,7 @@ function ServiceDetail({id}){
 
     return(
         <>
-        <body>
+        <div>
             <div>
                 <MultiNavBar pageTitle={'Service Details'} />
             </div>
@@ -42,7 +41,7 @@ function ServiceDetail({id}){
                             {services.map((service) =>
                             service.id === id && (
                                 <div key={service.id} className=" space-y-6">
-                                    <img src={service.service_Img} alt={`${service.service_name} vedio`} className="border-2 w-[95%] mx-auto md:h-[500px] h-[300px] p-1 " />
+                                    <img src={service.service_big_Img} alt={`${service.service_name} vedio`} className="border-2 w-[90%] mx-auto  p-1 " />
                                     <h2 className=" font-bold text-3xl " > {service.service_name} </h2>
                                     <p className="font-medium text-lg text-[#333] " > {service.service_description} </p>
                                 </div>
@@ -53,21 +52,21 @@ function ServiceDetail({id}){
                                 <h3 className=" font-bold text-xl " > Benefits With Our Service </h3>
                                 <div className=" w-[90%] ">
                                     {Cons.map((con) =>(
-                                        <div className='flex flex-col w-[95%] mx-auto ' key={con.id}>
-                                            <div className=' flex flex-row'>
-                                                <div className='text-[#3c72fc] rounded-sm flex justify-center '>
+                                    <div className='flex flex-col w-[95%] mx-auto ' key={con.id}>
+                                        <div className=' flex flex-row'>
+                                            <div className='text-[#3c72fc] rounded-sm flex justify-center '>
                                                 <IoCheckmarkDoneCircleSharp size={25} />
-                                                </div>
-                                                <div className='flex justify-start px-2 w-[95%] text-[#333] '>
-                                                <h3 className='font-semibold text-lg text-[#333]'> {con.text} </h3>
-                                                </div>
                                             </div>
+                                            <div className='flex justify-start px-2 w-[95%] text-[#333] '>
+                                                <h3 className='font-semibold text-lg text-[#333]'> {con.text} </h3>
+                                            </div>
+                                        </div>
                                     </div>
                                     ))}
                                 </div>
                             </div>
                             <div className=" my-2 ">
-                                <img src={ai} alt='this image' />
+                                <img src='https://i.pinimg.com/736x/80/ed/ad/80edadb7c03981955bb332f3e6725044.jpg' alt='services image' className="w-[80%] mx-auto "/>
                             </div>
                         </div>
                     </div>
@@ -98,7 +97,7 @@ function ServiceDetail({id}){
             <footer>
                 <Footer />
             </footer>
-        </body>
+        </div>
         </>
     )
 }

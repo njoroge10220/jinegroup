@@ -1,5 +1,5 @@
 
-import {React} from "react";
+import React, {useState} from "react";
 
 import MultiNavBar from "./multiNavbar";
 import Footer from "./footer";
@@ -8,15 +8,41 @@ import Button from "./button";
 import { CgEditStraight } from "react-icons/cg";
 
 import { contactList, socialLinks } from "./getArrays";
+import { PostMessage } from "./postArrays";
+
 
 function ContactsPage() {
     const contacts = contactList()
 
     const names = ['Call Us 24/7', 'Make A Quote', 'Location']
 
+     const [message, setMessage] = useState({
+            name:'',
+            email:'',
+            subject:'',
+            phone:'',
+            message:'',
+        })
+    
+        async function handleMessaging(e){
+            e.preventDefault()
+            if(message.name && message.email && message.subject && message.message){ 
+                await PostMessage({
+                    name:message.name,
+                    email:message.email,
+                    subject:message.subject,
+                    phone:message.phone,
+                    message:message.message,
+                })
+                setMessage({  name:'', email:'', subject:'', phone:'', message:'', })
+            }else{ 
+                alert(`fill in all the blanks to send message`)
+            }
+        }
+
     return(
         <>
-           <body>
+           <div>
                 <div>
                     <MultiNavBar pageTitle={'Contact Us'} />
                 </div>
@@ -77,29 +103,29 @@ function ContactsPage() {
                                                     <label htmlFor="name">
                                                         Your Name*
                                                     </label>
-                                                    <input type="text" name="name" placeholder="your name" className="border-2 border-[#33333380] p-3  " />
+                                                    <input type="text" name="name" placeholder="your name"  value={message.name} onChange={(e) => setMessage({...message, name: e.target.value})} className="border-2 border-[#33333380] p-3  " />
                                                 </div>
                                                 <div className="flex flex-col py-4 space-y-2">
                                                     <label htmlFor="email">
                                                         Your Email*
                                                     </label>
-                                                    <input type="text" name="email" placeholder="your email" className="border-2 border-[#33333380] p-3  " />
+                                                    <input type="text" name="email" placeholder="your email"  value={message.email} onChange={(e) => setMessage({...message, email: e.target.value})} className="border-2 border-[#33333380] p-3  " />
                                                 </div>
                                            </div>
                                            <div className="flex flex-col w-[90%] space-y-2 my-4 mx-auto">
                                                 <label htmlFor="subject">
                                                     Your Subject
                                                 </label>
-                                                <input type="text" name="email" placeholder="eg. web/software dev ..." className="border-2 border-[#33333380] p-3" />
+                                                <input type="text" name="email" placeholder="eg. web/software dev ..."  value={message.subject} onChange={(e) => setMessage({...message, subject: e.target.value})} className="border-2 border-[#33333380] p-3" />
                                            </div>
                                                 <div className="flex flex-col w-[90%] space-y-2 my-4 mx-auto">
                                                     <label htmlFor="message">
                                                         Your Message
                                                     </label>
-                                                    <textarea name="message" id="message" placeholder="write your Message" className="border-2 border-[#33333380] p-3"  rows={5}></textarea>
+                                                    <textarea name="message" id="message" placeholder="write your Message"  value={message.message} onChange={(e) => setMessage({...message, message: e.target.value})} className="border-2 border-[#33333380] p-3"  rows={5}></textarea>
                                                 </div>
-                                            <div>
-                                                <Button><div> Send Message  </div></Button>
+                                            <div className='relative z-50'>
+                                                <Button onClick={handleMessaging}> Send Message</Button>
                                             </div>
                                         </form>
                                     </div>
@@ -111,7 +137,7 @@ function ContactsPage() {
                 <div>  {/** footer section */}
                   < Footer />
                 </div>
-           </body>
+           </div>
         </>
     )
 }

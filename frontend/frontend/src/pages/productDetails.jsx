@@ -34,7 +34,7 @@ function ProductDetail({id}){
 
     return(
         <>
-        <body>
+        <div>
             <div>
                 <MultiNavBar pageTitle={'Product Details'} />
             </div>
@@ -47,7 +47,7 @@ function ProductDetail({id}){
                                 <div key={product.id} className=" space-y-6">
                                     <img src={product.product_Img} alt={`${product.product_title} vedio`} className="border-2 w-[95%] mx-auto md:h-[500px] h-[300px] p-1 " />
                                     <h2 className=" font-bold text-3xl " > {product.product_title} </h2>
-                                    <p className="font-medium text-lg text-[#333] " > {product.product_description} </p>
+                                    <p className="font-medium text-lg text-[#333] " > {product.product_short_description} </p>
                                     <div className="flex justify-start px-8">
                                     <Button link={''} ><div className='flex items-center gap-4 p-2'>Download <FaArrowRightLong size={17} /></div></Button>
                                     </div>
@@ -73,7 +73,7 @@ function ProductDetail({id}){
                                 </div>
                             </div>
                             <div className=" my-2 ">
-                                <img src={ai} alt='this image' />
+                                <img src='https://i.pinimg.com/736x/80/ed/ad/80edadb7c03981955bb332f3e6725044.jpg' alt='this image' className="w-[80%] mx-auto " />
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@ function ProductDetail({id}){
                         <div className="w-[95%] mx-auto p-5 bg-[#75c0c050] ">
                             <h2 className="my-3 font-bold text-2xl">All Products</h2>
                             <ul className=" flex flex-col  ">
-                            {products.slice(0.5).map((product) =>(
+                            {products.map((product) =>(
                                 <li key={product.id} className="  p-3 gap-6 ">
                                     <a href={`/product-details/${product.id}`} className="flex gap-6 justify-start px-4 py-5 text-xl font-medium hover:bg-[#23c4b6] items-center bg-[#f5f5f5]"> {product.product_title} <FaArrowRightLong size={20} /> </a>
                                 </li>
@@ -104,7 +104,7 @@ function ProductDetail({id}){
             <footer>
                 <Footer />
             </footer>
-        </body>
+        </div>
         </>
     )
 }

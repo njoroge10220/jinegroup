@@ -14,11 +14,10 @@ import Terms_of_ServicesPage from './pages/terms-of-service'
 import Change_LogPage from './pages/change-log'
 import ServiceDetail from './pages/serviceDetails'
 import ProductDetail from './pages/productDetails'
-import Blog_News from './pages/blogs_news'
+import Blog_New from './pages/blogs_news'
+import CompletedProjectPage from './pages/completedProjects'
 
 import { Service,Product } from './pages/getArrays'
-
-import './App.css'
 
 
 function App() {
@@ -28,8 +27,8 @@ function App() {
 
   return (
     <>
-      <body className='bg-[#fff] bg-center bg-cover bg-fixed min-h-screen w-full ' style={{ fontFamily: "Roboto Condensed" }}>
-       <BrowserRouter>
+      <section className='bg-[#fff] bg-center bg-cover bg-fixed min-h-screen w-full ' style={{ fontFamily: "Roboto Condensed, sans-serif" }}>
+        <BrowserRouter>
           <Routes>
             <Route path='/' element={<Homepage />} />
             <Route path='/about-us' element={<AboutUsPage />} />
@@ -41,7 +40,8 @@ function App() {
             <Route path='/change-log' element={<Change_LogPage />} />
             <Route path='/terms-of-service' element={<Terms_of_ServicesPage />} />
             <Route path='/report-incidence' element={<Report_IncidencePage />} />
-            <Route path='/blog-news' element={<Blog_News />} />     
+            <Route path='/completed-projects' element={<CompletedProjectPage />} />
+            <Route path='/blog-news' element={<Blog_New />} />     
             {services.map((service) =>(
             <Route key={service.id} path={`/service-details/${service.id}`} element={<ServiceDetail id={service.id} />} />              
             ))} 
@@ -49,8 +49,8 @@ function App() {
             <Route key={product.id} path={`/product-details/${product.id}`} element={<ProductDetail id={product.id} />} />              
             ))}                  
           </Routes>
-       </BrowserRouter>
-      </body>
+        </BrowserRouter>
+      </section>
     </>
   )
 }

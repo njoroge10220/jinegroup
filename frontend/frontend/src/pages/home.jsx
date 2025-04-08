@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { useState, useEffect } from 'react'
+
 import {AiFillAndroid } from 'react-icons/ai'
 import { FaArrowCircleRight, FaHandshake, FaBrain } from "react-icons/fa";
 import { CgEditStraight } from "react-icons/cg";
@@ -38,8 +39,8 @@ import ProcessCard from './processCard';
 import BlogCard from './blogCard';
 import ProductCard from './productCard';
 
-import { Service, Product, Completed_projects, Feedback , About_us, mainLinks, Achievements,TechStack } from './getArrays'
-import { PostFeedback } from './postArrays';
+import { Service, Product, Completed_projects, Feedback , About_us, mainLinks, Achievements, TechStack, Blog_News } from './getArrays'
+import { PostFeedback, PostSubscriber } from './postArrays';
 
 import ai from '../assets/ai.jpg'
 import stack from '../assets/stack.jpg'
@@ -54,60 +55,76 @@ function Homepage() {
   const completed_projects = Completed_projects()
   const achievements = Achievements()
   const techStack = TechStack()  
+  const news = Blog_News()
 
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
 
-  const [feedbackName, setFeedbackName] = useState('')
-  const [feedbackEmail, setFeedbackEmail] = useState('')
-  const [feedbackText, setFeedbackText] = useState('')
-  const [feedbackRate, setFeedbackRate] = useState(0)
-  
-  const maxTextLength = 300
+  const [feedback, setFeedback] = useState({
+    name:'',
+    email:'',
+    text:'',
+    rating:0,
+  })
+ 
+  const maxTextLength = 200
 
   function handleFeed(e){
     if(e.target.value.length <= maxTextLength){
-      setFeedbackText(e.target.value)
+      setFeedback({...feedback, text: e.target.value})
     }
   }
 
-  async function handleSumbit(){
-    if(feedbackName !== '' && feedbackName !== '' && feedbackText !== ''){
-      await PostFeedback({
-        feedback: feedbackText,
-        rating: feedbackRate,
-        feedback_author: feedbackName,
-        feedback_author_email: feedbackEmail,
-      })
+  async function handleSumbit(e){
+    e.preventDefault()
+    if(feedback.name && feedback.email && feedback.text && feedback.rating !== 0){
+      try{
+        await PostFeedback({
+          feedback: feedback.text,
+          rating: feedback.rating,
+          feedback_author: feedback.name,
+          feedback_author_email: feedback.email,
+        })
+        setFeedback({text:'', name:'',email:'', rating:0})
+      }catch(err){ 
+        alert(`Error posting feedback: ${err.message}`)
+      }
     }else{ 
-      alert('Fill in all the black to input feedback')
+      alert('Fill in all the blanks to submit feedback')
     }
-
-    setFeedbackName('')
-    setFeedbackEmail('')
-    setFeedbackText('')
-    setFeedbackRate(0)
   }
 
+  const [subscriberEmail, setSubscriberEmail] = useState('')
+  
+  async function handleSubscribe(e){
+    e.preventDefault()
+    if(subscriberEmail){
+      try{
+        await PostSubscriber({
+          email:subscriberEmail
+        })
+        setSubscriberEmail('')
+      }catch(err){ 
+        alert(`Error subscribing: ${err.message}`)
+      }
+    }else{ 
+      alert('Give an email to be a subscriber')
+    }
+  }
+  
   const processes = [
-    {num:1, image:stack, title:'Define Requirements', description:'Interaction with client to gather specified requirements'},
-    {num:2, image:ai, title:'Design & Prototyping', description:'Drafting the designs and actual development to actualise the requirements'},
-    {num:3, image:stack, title:'Final Solution', description:'Reviewing the solution and handing it over to the client'},
+    {num:1, image:'https://i.pinimg.com/736x/7c/25/33/7c25330a752883b32c8b4526c3ba6ddf.jpg', title:'Define Requirements', description:'Interaction with client to gather specified requirements'},
+    {num:2, image:'https://i.pinimg.com/736x/76/a3/be/76a3be809cb03f3e31a30165cfd404d9.jpg', title:'Design & Prototyping', description:'Drafting the designs and actual development to actualise the requirements'},
+    {num:3, image:'https://i.pinimg.com/736x/e1/ee/93/e1ee9348b2118a87a49e3d430e854071.jpg', title:'Final Solution', description:'Reviewing the solution and handing it over to the client'},
   ]
 
-  const news = [
-    {id:1,img:ai, byWho:'Admin',topic:' MiniCommando Game Production Dates', date:'13-Feb-2000',link:'/news',},
-    {id:2,img:stack, byWho:'Production',topic:'Maxcareandshare completion Dates', date:'04-Apr-2000',link:'/news',},
-    {id:3,img:ai, byWho:'Development',topic:'JineGroup production readiness', date:'16-Apr-2000',link:'/news',},
-    {id:4,img:stack, byWho:'Management',topic:'JineStores begining dates', date:'14-Dec-2000',link:'/news',},
-  ]
-
+  
   useEffect(()=> {
     AOS.init({ duration: 1000}) 
   }, [])
 
   return (
     <>
-    <body  className={`${isFeedbackOpen ? 'opacity-40' : ''}`} >
+    <div className={`${isFeedbackOpen ? 'opacity-40' : ''}`} style={{ fontFamily: "Roboto Condensed" }} >
 {/** navbar section */}
       <div className='flex flex-col justify-center items-center sticky top-1 z-50 w-[100%] mx-auto py-0 '> 
         <div className='flex flex-col justify-center items-center absolute top-1 w-[100%] mx-auto py-1 '>
@@ -130,7 +147,7 @@ function Homepage() {
                 </div>
                 <div className='md:w-[40%] w-[60%] py-5 '>
                   <Button>
-                    <a href={mainItems[1].linkToText} >
+                    <a href='/about-us' >
                       <div className='flex justify-center items-center gap-4 p-2 '>more on us<FaArrowRightLong /></div>
                     </a>
                   </Button>
@@ -328,22 +345,19 @@ function Homepage() {
 {/** tech stack section */}
 <section className='my-10'>
   <div className='flex flex-col justify-center items-center w-[100%] py-5 bg-cover' style={{ backgroundImage: `url(${stack})` }}>
-      <div className='grid md:grid-cols-2 grid-cols-1 w-[90%] mx-auto py-4 '>
+      <div className='grid grid-cols-1 w-[90%] mx-auto py-4 '>
         <div className=' flex flex-col justify-start' data-aos='fade-right'>
             <div className='flex flex-row gap-2 font-medium py-4 text-[#f5f5f5] '>
               <CgEditStraight size={25} /> <h3>OUR STACK</h3>
             </div>
             <div>
-              <h1 className=' text-[#f7f7f7] md:text-5xl text-3xl font-extrabold' > Enhance And Pioneer Using Technology Trends  </h1>
+              <h1 className=' text-[#f7f7f7] md:text-5xl text-3xl font-extrabold px-3 ' > Enhance And Pioneer Using Technology Trends  </h1>
             </div>
-        </div>
-        <div className='flex md:justify-end justify-center items-center md:py-0 py-3 ' data-aos='fade-down' >
-          <Button link={'/products'} ><div className='flex flex-row justify-center items-center gap-2 md:p-2 p-1'> Explore More <FaArrowCircleRight size={17} /></div></Button>
-        </div>
+        </div>        
       </div>
-      <div className='md:w-[80%] w-[95%] mx-auto  ' >
+      <div className='md:w-[80%] w-[95%] mx-auto  ' data-aos='fade-up' >
         <Swiper
-        modules={{ Pagination, Autoplay}}
+        modules={[ Pagination, Autoplay]}
         pagination={{ clickable:true }}
         spaceBetween={1}
         breakpoints={{
@@ -357,9 +371,9 @@ function Homepage() {
             slidesPerView: 4,
           },
         }}
-        autoplay={{delay: 500, disableOnInteraction: false, }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
-        className='  py-10 '>
+        className=' py-10 '>
         {techStack.map((stack) =>(
           <SwiperSlide key={stack.id} >
             <TechStackCard image={stack.logo} name={stack.name} />
@@ -382,14 +396,14 @@ function Homepage() {
         </div>
       </div>
       <div className='flex md:flex-row flex-col'>
-        {processes.map((process, index) => index != processes.length - 1 ? (
+        {processes.map((proc, index) => index != processes.length - 1 ? (
           <div className=" flex md:flex-row flex-col p-3"  data-aos='fade-right'>
             <div className='py-2'>
               <ProcessCard
-              number={process.num}
-              image={process.image}
-              title={process.title}
-              description={process.description}
+              number={proc.num}
+              image={proc.image}
+              title={proc.title}
+              description={proc.description}
               /> 
             </div>
             <div className='flex justify-center items-center text-[#333] '><PiArrowBendDoubleUpRightBold size={100} /></div>
@@ -397,10 +411,10 @@ function Homepage() {
         ) : <div className="flex md:flex-row flex-col p-3 " data-aos='fade-right'>
             <div className='py-2'>
               <ProcessCard
-              number={process.num}
-              image={process.image}
-              title={process.title}
-              description={process.description}
+              number={proc.num}
+              image={proc.image}
+              title={proc.title}
+              description={proc.description}
               />
             </div>
           </div>
@@ -422,14 +436,13 @@ function Homepage() {
           </div>
         </div>
         <div className='flex md:justify-end justify-center items-center md:py-0 py-3 ' >
-          <Button link={'/products'} ><div className='flex flex-row justify-center items-center gap-2 md:p-2 p-1'>View All Projects <FaArrowCircleRight size={17} /></div></Button>
+          <Button link={'/completed-projects'} ><div className='flex flex-row justify-center items-center gap-2 md:p-2 p-1'>View All Projects <FaArrowCircleRight size={17} /></div></Button>
         </div>
       </div>
       <div className='md:w-[90%] w-[95%] mx-auto' >
         <div>
           <Swiper
-          modules={{Pagination}}
-          pagination={true}
+          modules={[  Autoplay]}
           spaceBetween={10}
           breakpoints={{
             320:{
@@ -442,6 +455,7 @@ function Homepage() {
               slidesPerView: 3,
             },
           }}
+          autoplay={{delay: 3000, disableOnInteraction: false, }}
           loop={true}
           className='pb-5 pt-10 ' data-aos='fade-down'>
             {completed_projects.map((proj) =>(
@@ -450,7 +464,7 @@ function Homepage() {
                 image={proj.past_project_Img}
                 genre={proj.past_project_genre}
                 title={proj.past_project_title}
-                link={'/completed-projects'}
+                link={proj.past_project_link}
                 />
               </SwiperSlide>
             ))}
@@ -475,10 +489,10 @@ function Homepage() {
               </div>
               <div className='md:w-[80%] w-[95%] mx-auto '> 
                 <Swiper 
-                  modules={{ Pagination}}
-                  pagination={true}
+                  modules={[ Autoplay]}
                   spaceBetween={1}
                   slidesPerView={1}
+                  autoplay={{delay: 3000, disableOnInteraction: false, }}
                   loop={true}
                   className=' py-10 '>
                     {feedbacks.map((feedback) =>(
@@ -492,11 +506,9 @@ function Homepage() {
                     ))}
                 </Swiper>
               </div>
-              <div onClick={() => setIsFeedbackOpen(true)}>
-                <Button >
-                  <div className='' onClick={() => setIsFeedbackOpen(true)}>
+              <div>
+                <Button onClick={() => setIsFeedbackOpen(true)} >
                   Give Feedback
-                  </div>
                 </Button>
               </div>
           </div>
@@ -524,13 +536,13 @@ function Homepage() {
     </div>
     <div className='p-2' data-aos='fade-right'>
       <div className='flex md:flex-row flex-col'>
-        {news.slice(1.4).map((blog) =>(
-          <div className=" flex md:flex-row flex-col p-3"  data-aos='fade-right'>
+        {news.map((blog) =>(
+          <div key={blog.id} className=" flex md:flex-row flex-col p-3"  data-aos='fade-right'>
             <BlogCard
-            image={blog.img}
+            image={blog.image}
             date={blog.date}
             topic={blog.topic}
-            byWho={blog.byWho}
+            byWho={blog.by_who}
             />
           </div>
         ))}
@@ -539,63 +551,62 @@ function Homepage() {
     <div className='flex flex-col justify-center items-center text-center md:w-[98%] w-full' data-aos='zoom-in'>
       <p className='text-xl'><strong>Be the first to know! <br /></strong> Subscribe below to get all product launches, updates, and service announcements.</p>
       <form action="" className=' flex flex-row my-5 mx-auto md:gap-0 gap-2  '>
-        <input type="text" name="subscriber-email" placeholder="your email..." className="p-2 font-semibold text-lg border-2 rounded-sm border-[#2ec4b680] text-[#333]  " />
-        <Button link={''}>Subscribe</Button>
+        <input type="text" name="subscriber-email" placeholder="your email..." value={subscriberEmail} onChange={(e) => setSubscriberEmail(e.target.value)} className="p-2 font-semibold text-lg border-2 rounded-sm border-[#2ec4b680] text-[#333]  " />
+        <Button onClick={handleSubscribe}>Subscribe</Button>
       </form>
     </div>
   </div>
 </section>
  {/** footer section */}
-
       <div className=''>
         <Footer />
       </div>
-    </body>
+    </div>
     {/** feedback prompt */}
     {isFeedbackOpen && (
-                <div className='fixed  md:inset-x-[450px] md:inset-y-8 inset-x-7 inset-y-12  bg-[#aaa] z-50 opacity-100 flex flex-col py-4 space-y-4 '>
-                  <div className='flex justify-end mx-4'>
-                    <GiCancel onClick={() => setIsFeedbackOpen(false)} />
-                  </div>
-                  <hr className='w-[100%] mx-auto border-1 border-[#333] ' /> 
-                  <div className='flex flex-col mx-3 '>
-                    <label htmlFor="name" className='flex text-xl font-semibold'>Your Name</label>
-                    <input type="text"  className=' md:w-[70%] w-[80%] mx-5 p-2 ' value={feedbackName} onChange={(e) => setFeedbackName(e.target.value)} placeholder='your name' />
-                  </div>
-                  <div className='flex flex-col  mx-3'>
-                    <label htmlFor="email" className='flex text-xl font-semibold'>Your Email</label>
-                    <input type="text"  className=' md:w-[70%] w-[80%] mx-5 p-2 ' value={feedbackEmail} onChange={(e) => setFeedbackEmail(e.target.value)} placeholder='your email' />
-                  </div>
-                 <div className='flex flex-col mx-3 '>
-                    <label htmlFor="feedback" className='flex text-xl font-semibold'>Your Feedback</label>
-                    <textarea name="feedback" className=' md:w-[70%] w-[80%] mx-5 p-2 ' 
-                    placeholder='write feedback' maxLength={maxTextLength} value={feedbackText} onChange={handleFeed} id="" rows={4} />
-                    <p>
-                      {maxTextLength - feedbackText.length} characters left
-                    </p>
-                 </div>
-                  <div className='flex flex-col mx-3 '>
-                    <label htmlFor="rating" className='flex text-xl font-semibold'>Rate us? </label>
-                    <div className="my-4 flex justify-center items-center">
-                      {[...Array(5)].map((_, index) => {
-                          const starValue = index + 1
-                          return (
-                              <FaStar
-                              key={starValue}
-                              size={20}
-                              className={`${starValue <= feedbackRate ? 'text-[#3c72fc]' : 'text-[#333] '}`}  
-                              onClick={() => setFeedbackRate(starValue)} />                                  
-                          )
-                      })}
-                  </div>
-                 </div>
-                 <div className=' flex items-center mx-auto ' onClick={handleSumbit}>
-                  <Button>
-                    Submit
-                  </Button>
-                 </div>
-                </div>
-              )}
+      <div className='fixed  md:inset-x-[450px] md:inset-y-8 inset-x-7 inset-y-12  bg-[#aaa] z-50 opacity-100 flex flex-col py-4 space-y-4 '>
+        <div className='flex justify-end mx-4'>
+          <GiCancel onClick={() => setIsFeedbackOpen(false)}  className="cursor-pointer" />
+        </div>
+        <hr className='w-[100%] mx-auto border-1 border-[#333] ' /> 
+        <div className='flex flex-col mx-3 '>
+          <label htmlFor="name" className='flex text-xl font-semibold'>Your Name</label>
+          <input type="text"  className=' bg-[#f5f4f4] w-[80%] mx-5 p-2 ' value={feedback.name} onChange={(e) => setFeedback({...feedback, name: e.target.value})} placeholder='your name' />
+        </div>
+        <div className='flex flex-col  mx-3'>
+          <label htmlFor="email" className='flex text-xl font-semibold'>Your Email</label>
+          <input type="text"  className=' bg-[#f5f4f4] w-[80%] mx-5 p-2 ' value={feedback.email} onChange={(e) => setFeedback({...feedback, email: e.target.value})} placeholder='your email' />
+        </div>
+        <div className='flex flex-col mx-3 '>
+          <label htmlFor="feedback" className='flex text-xl font-semibold'>Your Feedback</label>
+          <textarea name="feedback" className=' bg-[#f5f4f4] w-[80%] mx-5 p-2  ' 
+          placeholder='write feedback' maxLength={maxTextLength} value={feedback.text} onChange={handleFeed} id="" rows={4} />
+          <p>
+            {maxTextLength - feedback.text.length} characters left
+          </p>
+        </div>
+        <div className='flex flex-col mx-3 '>
+          <label htmlFor="rating" className='flex text-xl font-semibold'>Rate us? </label>
+          <div className="my-4 flex justify-center items-center">
+            {[...Array(5)].map((_, index) => {
+                const starValue = index + 1
+                return (
+                    <FaStar
+                    key={starValue}
+                    size={20}
+                    className={`cursor-pointer ${starValue <= feedback.rating ? 'text-[#3c72fc]' : 'text-[#333] '}`}  
+                    onClick={() => setFeedback({...feedback, rating: starValue})} />                                  
+                )
+            })}
+        </div>
+        </div>
+        <div className=' flex items-center mx-auto ' onClick={handleSumbit}>
+        <Button>
+          Submit
+        </Button>
+        </div> 
+      </div>
+    )}
     </>
   )
 }

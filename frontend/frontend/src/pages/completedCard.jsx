@@ -10,7 +10,7 @@ import Button from "./button"
 function CompletedCard({image, genre, title,link}){
     return(
         <>
-        <div className="md:w-[380px] w-[330px] md:h-[390px] h-[340px] border-2 rounded-[4px] border-[#333] bg-[#aaabab50] m-2 ">
+        <div className="md:w-[380px] w-[330px] md:h-[390px] h-[340px] border-2 rounded-[4px] border-[#aaa] shadow-xl shadow-[#1a1a1a50] bg-[#aaabab50] m-2 ">
             <div>
                 <img src={image} alt={`${title} image`} className="w-full md:h-[390px] h-[340px] rounded-[4px] " />
             </div>

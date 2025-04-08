@@ -4,8 +4,8 @@ import React from "react";
 
 function ServiceCard({title, image, description, button1, button2, link1, link2}){
     return(
-        <div className="bg-[#75c0c050] shadow-md rounded-sm flex flex-col justify-between py-2 gap-3" style={{fontFamily: "Roboto Condensed" }}>           
-            <div className=" bg-[] "> 
+        <div className="bg-[#75c0c050]  shadow-md rounded-sm flex flex-col justify-between py-2 gap-3" style={{fontFamily: "Roboto Condensed" }}>           
+            <div className=" "> 
                 <img  className='w-[30%] px-5 flex ' src={image} alt={`${title} image`} />
             </div>
             <div>

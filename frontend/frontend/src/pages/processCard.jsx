@@ -9,7 +9,7 @@ function ProcessCard({number, image, title, description}){
                 
             </div>
             <div className="static">
-                <div><img src={image} alt={`${title} image`} className=" absolute mt-[-172.5px] ml-[-75px]  w-[150px] h-[150px] rounded-full " /> </div>
+                <div><img src={image} alt={`${title} image`} className=" absolute mt-[-172.5px] ml-[-75px] object-cover w-[150px] h-[150px] rounded-full " /> </div>
             </div>
             <div className="static">
                 <div className="bg-[#2ec4b6] rounded-full p-2 w-[40px] h-[40px] flex justify-center items-center font-black text-xl absolute mt-[-175px] ml-[-80px]  text-[#f3f7fb] ">

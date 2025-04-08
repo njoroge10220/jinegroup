@@ -45,7 +45,7 @@ function AboutUsPage() {
 
     return(
         <>
-           <body>
+           <div>
                 <div>
                     <MultiNavBar pageTitle={'About Us'} />
                 </div>
@@ -158,7 +158,7 @@ function AboutUsPage() {
                 <div>
                     <Footer />
                 </div>
-           </body>
+           </div>
         </>
     )
 }

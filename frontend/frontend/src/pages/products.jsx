@@ -16,12 +16,11 @@ function ProductsPage() {
 
     const products = Product()
 
-    const imagesBig = [ai,stack,ai,stack,]
     
 
     return(
         <>
-            <body>
+            <div>
                 <div>
                     <MultiNavBar pageTitle={'IT Products'} />
                 </div>
@@ -30,7 +29,7 @@ function ProductsPage() {
                     {products.map((prod, index) =>(
                     <li className=" md:w-[30%] w-[90%] mx-5 " key={index}>
                         <ServicePageCard key={index}
-                        imageBig={imagesBig[index]}
+                        imageBig={prod.product_Img}
                         imageSmall={prod.product_Img}
                         title={prod.product_title}
                         content={prod.product_short_description}
@@ -43,7 +42,7 @@ function ProductsPage() {
                 <footer>
                     <Footer />
                 </footer>
-            </body>
+            </div>
         </>
     )
 }

@@ -8,13 +8,13 @@ import { BsPersonFill } from "react-icons/bs";
 function BlogCard({image, date, topic, byWho, link}){
     return(
         <>
-            <div className="bg-[#f4f4f4] rounded-[3px] m-3 md:w-[95%] mx-auto group min-h-full">
+            <div className="bg-[#f4f4f4] shadow-xl shadow-[#3c72fc50] rounded-[3px] m-3 md:w-[95%] mx-auto group min-h-full">
                 <div>
-                    <img src={image} alt='news image' className="w-full h-[250px] transition-transform duration-500 ease-in-out transform group-hover:scale-95 " />
+                    <img src={image} alt='news image' className="w-full h-[300px] transition-transform duration-500 ease-in-out transform group-hover:scale-95 " />
                 </div>
                 <div>
                     <div className="static m-3">
-                        <div className="absolute mt-[-300px] ml-[40px] p-2 text-center bg-[#2ec4b6] text-[#fff] ">
+                        <div className="absolute mt-[-350px] ml-[40px] p-2 text-center bg-[#2ec4b6] text-[#fff] ">
                             <h2 className="flex flex-col"> 
                                 {date.split('-').map((d) =>(
                                 <div className=" font-semibold text-lg">

@@ -7,7 +7,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 function ServicePageCard({imageBig, imageSmall, title, content, link}){
     return(
         <>
-        <div className="bg-[#75c0c050] rounded-tl-[100px] rounded-br-[100px] group gap-3 flex flex-col h-full ">
+        <div className="bg-[#75c0c050] border-1 border-[#33333380] rounded-tl-[100px] rounded-br-[100px] group gap-3 flex flex-col h-full ">
             <div className="">
                 <img src={imageBig} alt={`${title} image`} className="rounded-tl-[100px] h-[300px] w-full "  />
             </div>
