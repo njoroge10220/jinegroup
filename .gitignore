@@ -1,5 +1,5 @@
 
-.frontend/frontend/src/pages/getArrays.jsx
-.frontend/frontend/src/pages/postArrays.jsx
+frontend/frontend/src/pages/getArrays.jsx
+frontend/frontend/src/pages/postArrays.jsx
 backend/env/backend/api/models.py
 backend/env/backend/api/urls.py
